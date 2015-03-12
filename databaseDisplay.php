@@ -115,6 +115,9 @@ if(!isset($_SESSION['userID'])){
 				$numstars--;
 			}
 			echo "</td></tr>";
+			if($row['RottenLink'] != ""){
+				echo "<tr><td>Critic Reviews:</td><td><a href=".$row['RottenLink'].">Rotten Tomatoes</a></td></tr>";
+			}
 			echo "<tr><td>
 				<form method='post' style='margin: 0; text-align: left;' action='databaseDisplay.php'>
 				<button type='submit' name='Remove' value='" . $row['reviewID'] . "'>Remove</button></form></td></tr>";
