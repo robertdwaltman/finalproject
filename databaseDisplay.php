@@ -60,8 +60,10 @@ function tryAddNew(newTitle, newReview, newRating){
 		xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 if(xmlhttp.responseText != ""){
+                	/*if the add was unsuccessful for some reason, output error*/
                 	document.getElementById("newReviewResponse").innerHTML+=xmlhttp.responseText;
                 } else {
+                	/*otherwise reload the page*/
 					window.location.href ="http://web.engr.oregonstate.edu/~waltmanr/databaseDisplay.php";
                 }
             }
@@ -78,6 +80,7 @@ function tryAddNew(newTitle, newReview, newRating){
 
 <?php
 if(!isset($_SESSION['userID'])){
+	/*this fires if the user got here without logging in*/
 	echo "<p>You are not logged in. Please log in <a href='loginpage.php'>HERE</a></p>";
 	exit;
 } else{
@@ -92,6 +95,7 @@ if(!isset($_SESSION['userID'])){
 		$stmt = $mysqli->prepare("DELETE FROM userVideos WHERE reviewID = (?)");
 		$stmt->bind_param('i', $_POST['Remove']);
 		$stmt->execute();
+		//remove the specified entry if we got here via a remove button
 	}
 
 	$stmt = $mysqli->query("SELECT * FROM userVideos WHERE userID='$_SESSION[userID]'");
@@ -103,19 +107,19 @@ if(!isset($_SESSION['userID'])){
 	else{
 		
 		$stmt->data_seek(0);
-		while ($row = $stmt->fetch_assoc()){
+		while ($row = $stmt->fetch_assoc()){ //display each returned result
 			echo "<div id='userReviews'>";
 			echo "<table cellpadding='2'>";
 			echo "<tr><td>Movie Title:</td><td>".$row['title']."</td></tr>";
 			echo "<tr><td>Your Review:</td><td>".$row['description']."</td></tr>";
 			echo "<tr><td>Your Rating:</td><td>";
 			$numstars=$row['rating'];
-			while($numstars > 0){
+			while($numstars > 0){ //output a star for every star the user gave it
 				echo "<img src='star.png'>";
 				$numstars--;
 			}
 			echo "</td></tr>";
-			if($row['RottenLink'] != ""){
+			if($row['RottenLink'] != ""){ //if a link to a review exists, list it here, otherwise skip it
 				echo "<tr><td>Critic Reviews:</td><td><a href=".$row['RottenLink'].">Rotten Tomatoes</a></td></tr>";
 			}
 			echo "<tr><td>

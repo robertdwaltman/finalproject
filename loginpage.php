@@ -50,6 +50,7 @@ label {float: left; width: 150px;}
 input[type=text] {float: left; width: 200px; margin-bottom: 5px;}
 input[type=password] {float: left; width: 200px; margin-bottom: 5px;}
 .clear{clear: both; height: 0; line-height: 0;}
+/*formatting rules for text input*/
 body{
 	background-color: linen;
 }
@@ -67,9 +68,11 @@ function tryLogin(userInput, passInput){
 		xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            	/*responseText is 0 if the user login was wrong*/
                 if(xmlhttp.responseText == 0){
                 	document.getElementById("loginResponse").innerHTML+="Error: Incorrect username or password.<br>";
                 } else if(xmlhttp.responseText == 1) {
+                	/*otherwise carry through to display page*/
 					window.location.href ="http://web.engr.oregonstate.edu/~waltmanr/databaseDisplay.php";
                 }
             }
@@ -94,6 +97,7 @@ function tryRegister(userInput, passInput, passInput2){
 		xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 if(xmlhttp.responseText == 0){
+                	/*responseText is 0 if a dupe is found*/
                 	document.getElementById("registerResponse").innerHTML+="Error: User already exists.<br>";
                 } else if(xmlhttp.responseText == 1) {
 					window.location.href ="http://web.engr.oregonstate.edu/~waltmanr/databaseDisplay.php";
