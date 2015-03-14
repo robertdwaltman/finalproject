@@ -84,7 +84,9 @@ if(!isset($_SESSION['userID'])){
 	echo "<p>You are not logged in. Please log in <a href='loginpage.php'>HERE</a></p>";
 	exit;
 } else{
-	echo "<p>Hello, $_SESSION[userName]!</p>";
+	echo "<p>";
+	echo htmlspecialchars("Hello, $_SESSION[userName]!");
+	echo "</p>";
 	echo "<p>Click <a href='loginpage.php?logout=true'>HERE</a> to logout and return to the main page.</p>";
 
 	include 'storedInfo.php'; //password file, permissions set to exclude everyone from seeing it
@@ -97,8 +99,8 @@ if(!isset($_SESSION['userID'])){
 		$stmt->execute();
 		//remove the specified entry if we got here via a remove button
 	}
-
-	$stmt = $mysqli->query("SELECT * FROM userVideos WHERE userID='$_SESSION[userID]'");
+	$cleanUserID = $mysqli->real_escape_string($_SESSION['userID']);
+	$stmt = $mysqli->query("SELECT * FROM userVideos WHERE userID='$cleanUserID'");
 	if($stmt->num_rows == 0){
 		echo "<div id='userReviews'>";
 		echo "<p>You have no saved reviews. Add a new review below!</p>";

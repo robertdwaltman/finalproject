@@ -77,8 +77,10 @@ function tryLogin(userInput, passInput){
                 }
             }
         }
-        xmlhttp.open("GET", "trylogin.php?u="+userInput+"&p="+passInput, true);
-        xmlhttp.send();
+        var statement = "u="+userInput+"&p="+passInput;
+        xmlhttp.open("POST", "trylogin.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send(statement);
 	}
 }
 function tryRegister(userInput, passInput, passInput2){
@@ -104,8 +106,10 @@ function tryRegister(userInput, passInput, passInput2){
                 }
             }
         }
-        xmlhttp.open("GET", "tryregister.php?u="+userInput+"&p="+passInput, true);
-        xmlhttp.send();
+        var statement = "u="+userInput+"&p="+passInput;
+        xmlhttp.open("POST", "tryregister.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send(statement);
     }
 }
 </script>

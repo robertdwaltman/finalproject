@@ -9,8 +9,8 @@ include 'storedInfo.php'; //password file, permissions set to exclude everyone f
 $mysqli = new mysqli("oniddb.cws.oregonstate.edu", "waltmanr-db", $password, "waltmanr-db"); 
 	//initialize the connection
 
-$userNameInput = $mysqli->real_escape_string($_GET['u']);
-$userPasswordInput = $mysqli->real_escape_string($_GET['p']);
+$userNameInput = $mysqli->real_escape_string($_POST['u']);
+$userPasswordInput = $mysqli->real_escape_string($_POST['p']);
 //escape the input to avoid injection
 $stmt = $mysqli->query("SELECT * FROM userTable WHERE userName='$userNameInput' AND userPassword='$userPasswordInput'");
 
